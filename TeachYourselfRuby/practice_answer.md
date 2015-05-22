@@ -568,3 +568,65 @@
     Time.now.strftime("%Y/%m/%d %H:%M:%S")
     Time.now.strftime("%Y/%m/%d %X")
     ```
+
+5.2
+
+  1. 2008/2/3 から 2008/9/10 までの日数を計算するプログラム。ただしDateクラスを使用
+
+    [5.2.1.rb](./5.2.1.rb)
+    ```ruby
+    require 'date'
+
+    day1 = Date.new(2008, 2, 3)
+    day2 = Date.new(2008, 9, 10)
+    diff_days = day2 - day1
+
+    puts diff_days.to_i #to_sだと`220/1`となる
+    ```
+
+  1. 適切なコードを入れ、うるう年を判定して表示するプログラム
+
+    [5.2.2.rb](./5.2.2.rb)
+    ```ruby
+    require 'date'
+
+    d = Date.new(2008, 1, 1)
+    # d = Date.new(2009, 1, 1)
+
+    if d.leap?
+      puts "#{d.year}年はうるう年です"
+    else
+      puts "#{d.year}年はうるう年ではありません"
+    end
+    ```
+
+5章理解度チェック
+
+  1. 日時を取り扱うクラスと日付のみを取り扱うクラスを挙げる
+
+    日時 Time
+    日付 Date
+
+  1. 現在の時刻を取得して、午前か午後かを表示する
+
+  1. 3ヶ月後の日付を取得して表示
+
+  [5_check.rb](./5_check.rb)
+
+  ```ruby
+  # 2
+
+  time_now = Time.now.strftime('%P').to_s
+
+  if time_now == 'am'
+    puts '午前'
+  else
+    puts '午後'
+  end
+
+  # 3
+
+  require 'date'
+
+  puts Date.today >> 3
+  ```
