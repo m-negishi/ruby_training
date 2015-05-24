@@ -630,3 +630,18 @@
 
   puts Date.today >> 3
   ```
+
+6.1
+
+  1. 適切なコードを入れて、直前の2要素の合計となる数列を作るプログラム
+
+  ```ruby
+  a = [1, 1]
+  5.times do
+    # a_last_index = a.length - 1
+    # a << a[a_last_index - 1] + a[a_last_index]
+    # 負数のインデックスは末尾から数えた要素を指す
+    a << a[-1] + a[-2]
+  end
+  puts a.inspect
+  ```
