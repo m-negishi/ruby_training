@@ -700,5 +700,74 @@
   1. 日本語と英語のキーワードを交互に入力し、入力が完了したら入力内容を一覧するプログラム（英語で「END」を入力したら完了とする）
 
   ```ruby
+  words = {}
 
+  loop do
+    puts "English> #{e_word = gets}"
+    # 改行を削除
+    e_word.chomp!
+
+    break if e_word == 'END'
+
+    puts "日本語> #{j_word = gets}"
+    j_word.chomp!
+    # hashに格納
+    words[e_word] = j_word
+  end
+
+  words.each do |e, j|
+    puts "#{e} : #{j}"
+  end
   ```
+
+6章理解度チェック
+
+  1. 次の数値を配列に入れて、昇順、降順で表示。合計値、平均値を表示。1, 10, 12, 3, 8, 90, 34, 82
+
+     [6_check.1.rb](./6_check.1.rb)
+
+     ```ruby
+     arr = [1, 10, 12, 3, 8, 90, 34, 82]
+
+     puts "昇順 #{arr.sort}"
+     puts "降順 #{arr.sort.reverse}"
+
+     sum = 0
+
+     arr.each do |val|
+       sum += val
+     end
+
+     puts "合計値 #{sum}"
+     puts "平均値 #{sum.to_f.quo(arr.length)}"
+     ```
+
+  1. 好きな食べ物を10個ハッシュに入れる。キーは好きな順位、値は好きな食べ物の名称。好きな食べ物を一覧で表示。また、2番目と7番目に好きなものを一緒に食べるという文字列を表示
+
+     [6_check.2.rb](./6_check.2.rb)
+
+     ```ruby
+     foods = {
+       '1': 'カレー',
+       '2': 'グラタン',
+       '3': 'ラーメン',
+       '4': 'ハンバーグ',
+       '5': 'ライチ',
+       '6': 'メロン',
+       '7': 'うどん',
+       '8': 'パスタ',
+       '9': '焼き肉',
+       '10': 'お茶漬け'
+     }
+
+     foods.each do |num, food|
+       puts "#{num} 番目の好きなものは #{food}"
+     end
+
+     num1 = 2
+     num2 = 7
+     num1_symbol = num1.to_s.intern
+     num2_symbol = num2.to_s.intern
+
+     puts "#{foods[num1_symbol]}と、#{foods[num2_symbol]}は一緒に食べる"
+     ```
