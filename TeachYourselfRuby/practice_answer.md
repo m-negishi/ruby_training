@@ -630,3 +630,144 @@
 
   puts Date.today >> 3
   ```
+
+6.1
+
+  1. 適切なコードを入れて、直前の2要素の合計となる数列を作るプログラム
+
+  [6.1.1.rb](./6.1.1.rb)
+
+  ```ruby
+  a = [1, 1]
+  5.times do
+    # a_last_index = a.length - 1
+    # a << a[a_last_index - 1] + a[a_last_index]
+    # 負数のインデックスは末尾から数えた要素を指す
+    a << a[-1] + a[-2]
+  end
+  puts a.inspect
+  ```
+
+  1. 適切なコードを入れて、1つの配列から次のように2次元配列を作るプログラム
+
+  [6.1.2.rb](./6.1.2.rb)
+
+  ```ruby
+  a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  b = []
+
+  # (0...a.length - 2).each do |i|
+  #   b << [a[i], a[i + 1], a[i + 2]]
+  # end
+
+  i = 0
+  while i < a.length - 2
+    # a[開始位置, 長さ]で、返り値は配列
+    b << a[i, 3]
+    i += 1
+  end
+
+  puts b.inspect
+
+  # 実行例
+  # [ [1, 2, 3], [2, 3, 4], [3, 4, 5] ... ]
+  ```
+
+6.2
+
+  1. 1〜12の数字を陰暦の月名に変換するプログラム
+
+  [6.2.1.rb](./6.2.1.rb)
+
+  ```ruby
+  # keyをシンボル(文字列)としてhash生成
+  japanese_months = { '1': '睦月', '2': '如月', '3': '弥生', '4': '卯月', '5': '皐月', '6': '水無月', '7': '文月', '8': '葉月', '9': '長月', '10': '神無月', '11': '霜月', '12': '師走' }
+
+  (1..12).each do |month|
+    # 数値をシンボルに変換するために一度文字列に変換
+    month_symbol = month.to_s.intern
+    puts "#{month}月は #{japanese_months[month_symbol]} です"
+  end
+
+  # keyを数値としてhash生成（シンボルとしてはhash生成できない）
+  jm = { 1 => '睦月', 2 => '如月', 3 => '弥生', 4 => '卯月', 5 => '皐月', 6 => '水無月', 7 => '文月', 8 => '葉月', 9 => '長月', 10 => '神無月', 11 => '霜月', 12 => '師走' }
+
+  (1..12).each do |month|
+    puts "#{month}月は #{jm[month]} です"
+  end
+  ```
+
+  1. 日本語と英語のキーワードを交互に入力し、入力が完了したら入力内容を一覧するプログラム（英語で「END」を入力したら完了とする）
+
+  ```ruby
+  words = {}
+
+  loop do
+    puts "English> #{e_word = gets}"
+    # 改行を削除
+    e_word.chomp!
+
+    break if e_word == 'END'
+
+    puts "日本語> #{j_word = gets}"
+    j_word.chomp!
+    # hashに格納
+    words[e_word] = j_word
+  end
+
+  words.each do |e, j|
+    puts "#{e} : #{j}"
+  end
+  ```
+
+6章理解度チェック
+
+  1. 次の数値を配列に入れて、昇順、降順で表示。合計値、平均値を表示。1, 10, 12, 3, 8, 90, 34, 82
+
+     [6_check.1.rb](./6_check.1.rb)
+
+     ```ruby
+     arr = [1, 10, 12, 3, 8, 90, 34, 82]
+
+     puts "昇順 #{arr.sort}"
+     puts "降順 #{arr.sort.reverse}"
+
+     sum = 0
+
+     arr.each do |val|
+       sum += val
+     end
+
+     puts "合計値 #{sum}"
+     puts "平均値 #{sum.to_f.quo(arr.length)}"
+     ```
+
+  1. 好きな食べ物を10個ハッシュに入れる。キーは好きな順位、値は好きな食べ物の名称。好きな食べ物を一覧で表示。また、2番目と7番目に好きなものを一緒に食べるという文字列を表示
+
+     [6_check.2.rb](./6_check.2.rb)
+
+     ```ruby
+     foods = {
+       '1': 'カレー',
+       '2': 'グラタン',
+       '3': 'ラーメン',
+       '4': 'ハンバーグ',
+       '5': 'ライチ',
+       '6': 'メロン',
+       '7': 'うどん',
+       '8': 'パスタ',
+       '9': '焼き肉',
+       '10': 'お茶漬け'
+     }
+
+     foods.each do |num, food|
+       puts "#{num} 番目の好きなものは #{food}"
+     end
+
+     num1 = 2
+     num2 = 7
+     num1_symbol = num1.to_s.intern
+     num2_symbol = num2.to_s.intern
+
+     puts "#{foods[num1_symbol]}と、#{foods[num2_symbol]}は一緒に食べる"
+     ```
