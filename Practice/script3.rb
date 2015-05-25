@@ -9,41 +9,42 @@ courses = [
 teachers = [
   { 1 => ['佐藤', %w(T4004 E1001)] },
   { 2 => ['鈴木', %w(M2001 M2002)] },
-  { 3 => ['田中', %w(E1001 M2001)] }
+  { 3 => ['田中', %w(E1001 M2001)] },
 ]
 
 course_result = {}
 
+# course_result[コースID] = コース名 に初期化
 courses.each do |course|
-  course.each_key do |key|
-    # コースID : コース情報
-    # puts "#{key} : #{courseInfo}"
-    course_result[key] = nil
+  course.each do |course_id, course_info|
+    course_result[course_id] = course_info[0]
   end
 end
 
-# 教師毎の情報抽出
 teacher_result = []
 
+# teacher_result[コースID] = 教師名 に 初期化
 (0...teachers.length).each do |i|
   teachers[i].each do |_teacher_id, teacher_info| # 使用しない変数には'_'を付ける
-    # info.class = Array
 
     # 教師名 ： 担当コース(Array)
     # puts "#{teacher_info[0]} : #{teacher_info[1]}"
-    teacher_info[1].each do |has_course|
-      # 教師名 : 担当コース
-      # puts "#{teacher_info[0]} : #{has_course}"
-
-      # コース名, 担当教師
-      teacher_result << [has_course, teacher_info[0]]
+    teacher_info[1].each do |course_id|
+      # コースid, 担当教師
+      teacher_result << [course_id, teacher_info[0]]
     end
   end
 end
 
-# まだコース名でまとめて教師を吐き出せていない
-course_result.each_key do |key|
+result = {}
+
+puts "コース名 : 担当教師"
+course_result.each_key do |course_id|
   (0...teacher_result.length).each do |j|
-    puts "#{key} : #{teacher_result[j][1]}" if teacher_result[j][0] == key
+    # += 演算子が使えない？
+    # result[key] += "#{teacher_result[j][1]}先生" if teacher_result[j][0] == key
+    result[course_id] = "#{result[course_id]} #{teacher_result[j][1]}先生" if teacher_result[j][0] == course_id
   end
+  result[course_id] = '担当がいません' if result[course_id].nil?
+  puts "#{course_result[course_id]} : #{result[course_id]}"
 end
