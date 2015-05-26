@@ -771,3 +771,133 @@
 
      puts "#{foods[num1_symbol]}と、#{foods[num2_symbol]}は一緒に食べる"
      ```
+7.1
+
+  1. 以下のeven?メソッドがあるとき、even?(1), even?(10), even?(0)がそれぞれ何を返すか
+
+    ```ruby
+    def even?(a)
+      if (a % 2) == 0
+        return true
+      end
+      false
+    end
+
+    even?(1) = false
+    even?(10) = true
+    even?(0) = true
+    ```
+
+  1. 以下のように振る舞うgreetingメソッドを完成させる
+
+    ```ruby
+      greeting # => "Hello."
+      greeting("Thanks") # => "Thanks."
+      greeting("Thanks", "Taro") # => "Thanks, Taro"
+    ```
+
+    [7.1.2.rb](./7.1.2.rb)
+
+    ```ruby
+    def greeting(str='Hello', name=nil)
+      if name.nil?
+        puts "#{str}."
+      else
+        puts "#{str}, #{name}."
+      end
+    end
+
+    greeting
+    greeting('thanks')
+    greeting('Test', 'negi')
+    ```
+
+7.2
+
+  1. Dogクラスに、あらかじめkindの初期値が指定できるようにする
+
+    [7.2.1.rb](./7.2.1.rb)
+
+    ```ruby
+    class Dog
+      def initialize(k = 'Mongrel')
+        @kind = k
+      end
+
+      def kind
+        @kind
+      end
+
+      def kind=(k)
+        @kind = k
+      end
+    end
+
+    dog = Dog.new
+    puts dog.kind
+
+    dog.kind = 'Chihuahua'
+    puts dog.kind
+
+    dog2 = Dog.new('Papillon')
+    puts dog2.kind
+    ```
+
+  1. Dogクラスに以下の仕様を追加
+
+    * kindメソッドはインスタンス生成時に指定し、あとは参照のみ可能
+
+    * mealメソッドにオブジェクト（文字列）を渡すことでエサを与える
+
+    * feelingメソッドはエサが与えられているときは'Good'を返し、エサがなくなると'Sad'を返す
+
+    * エサを与えるとfeelingメソッドは一度だけ'Good'を返す
+
+    [7.2.2.rb](./7.2.2.rb)
+
+    ```ruby
+    class Dog
+      attr_reader :kind
+      attr_writer :meal
+
+      def initialize(k = 'Mongrel')
+        @kind = k
+        @meal = nil
+      end
+
+      # アクセスメソッドで代替
+      # def kind
+      #   @kind
+      # end
+
+      # def kind=(k)
+      #   @kind = k
+      # end
+
+      # アクセスメソッドで代替できる
+      # def meal=(food)
+      #   puts 'エサを与える'
+      #   @meal = food
+      #
+      # end
+
+      def feeling
+        if @meal.nil?
+          # puts 'Sad'
+          return 'Sad'
+        else
+          @meal = nil
+          return 'Good'
+        end
+      end
+    end
+
+    dog = Dog.new('Chihuahua')
+    puts dog.kind
+    # dog.kind = 'test' # エラー
+    puts dog.feeling # Sad
+    dog.meal = 'dogfood' # エサを与える
+    puts dog.feeling # Good
+    puts dog.feeling # Sad
+
+    ```

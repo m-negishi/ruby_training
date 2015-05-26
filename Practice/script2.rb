@@ -1,6 +1,6 @@
 # ワイルドカードはデフォルトではファイル名の先頭の "." にマッチしない
 # File::FNM_DOTMATCHフラグを第二引数に指定すればマッチする
-puts files_and_directories = Dir.glob('*')
+files_and_directories = Dir.glob('*', File::FNM_DOTMATCH)
 
 files = []
 
