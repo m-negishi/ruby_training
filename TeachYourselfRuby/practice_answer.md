@@ -901,3 +901,158 @@
     puts dog.feeling # Sad
 
     ```
+
+7.3
+
+  1. メソッドの可視性を変更する3つのメソッドはなにか
+
+    public 制限なく呼び出し可能
+
+    private 同じクラス、もしくは同じサブクラスからのみ呼び出し可能
+
+    protected privateと同じだが、別のインスタンスでも、同じクラスもしくはサブクラスのオブジェクトであれば呼び出し可能
+
+  1. 次のクラスのメソッドはprivate定義されているが、cookingメソッドのみpublicに変更したい。指定の位置にコードを追加して、可視性を変更する
+
+  [7.3.2.rb](./7.3.2.rb)
+
+  ```ruby
+  class Chef
+    private
+
+    def precooking
+      puts '下ごしらえ'
+    end
+
+    def cooking
+      precooking
+      puts '調理'
+      seasoning
+      setout
+    end
+
+    # ここに追加
+    public :cooking
+
+    def seasoning
+      puts '味付け'
+    end
+
+    def setout
+      puts '盛り付け'
+    end
+  end
+  ```
+
+7.4
+
+  1. 次のMyObjectクラスのmethodを呼び出すとき、太字で示したselfは何を指しているか
+
+    ```ruby
+    class MyObject
+      def method
+        puts self
+      end
+    end
+
+    mo = MyObject.new
+    mo.method
+    ```
+
+    moオブジェクトを指す
+
+
+7.5
+
+  1. モジュールの用途である「属性集約」と「機能集約」を実現するRubyのモジュール機能は何か
+
+    属性集約 Mix-in
+
+    機能集約 モジュール関数
+
+  1. 以下の仕様を満たすBirthモジュールを作成
+
+    * インクルード先のクラスにDateオブジェクトを返すbirthdayメソッド（誕生日を返す）を要求する
+
+    * Birthモジュールは現時点での年齢を返すageメソッドを追加する
+
+    * Birthモジュールは現時点で成人（20歳以上）かどうかを判定するcoming_of_age?メソッドを追加する
+
+    [7.5.2.rb](./7.5.2.rb)
+
+    ```ruby
+    require 'date'
+
+    module Birth
+      def age
+        # 今日の日付 - 誕生日 / 10000（小数点以下切り捨て）で単純な年齢を計算できる
+        today = Date.today.strftime('%Y%m%d').to_i
+        # birth = self.birthday.strftime('%Y%m%d').to_i
+        # selfを省略すると暗黙的にselfをレシーバとする
+        birth = birthday.strftime('%Y%m%d').to_i
+        # 3桁以上の数値はアンダースコアで区切る（規約）
+        (today - birth).div(10_000)
+      end
+
+      def coming_of_age?
+        age >= 20
+      end
+    end
+
+    class Person
+      include Birth
+
+      attr_reader :birthday
+
+      def initialize(birth)
+        @birthday = birth || Date.today # birthがnilかfalseの場合、Date.todayが代入される
+      end
+
+      # アクセスメソッドに置き換え
+      # def birthday
+      #   @birthday
+      # end
+    end
+
+    p = Person.new(Date.new(1985, 10, 1))
+
+    puts p.age
+    puts p.coming_of_age?
+    ```
+
+7.6
+
+  1. 次のようなPersonクラスがあり、血液型を返すbloodtypeメソッドがある。このPersonクラスにPersonオブジェクトの血液型の相性を調べるクラスメソッドcompatibilityを作成する。ただし、このクラスメソッドは特異クラス定義で定義する。
+
+  [7.6.1.rb](./7.6.1.rb)
+
+  ```ruby
+  class Person
+    attr_reader :bloodtype
+
+    def initialize(b)
+      @bloodtype = b
+    end
+  end
+
+  class << Person
+    def compatibility(person1, person2)
+      matrix = {
+        'A': { 'A': 75, 'B': 50, 'O': 95, 'AB': 40 },
+        'B': { 'A': 50, 'B': 75, 'O': 75, 'AB': 90 },
+        'O': { 'A': 95, 'B': 75, 'O': 65, 'AB': 50 },
+        'AB': { 'A': 40, 'B': 90, 'O': 50, 'AB': 70 }
+      }
+
+      matrix[:"#{person1.bloodtype}"][:"#{person2.bloodtype}"]
+    end
+  end
+
+  a = Person.new('A')
+  b = Person.new('B')
+  o = Person.new('O')
+  ab = Person.new('AB')
+
+  puts Person.compatibility(a, b)
+  puts Person.compatibility(o, ab)
+  ```
