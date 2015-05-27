@@ -1,14 +1,27 @@
-# 問題 3 の入力として指定されているコース、教師それぞれのデータ構造をクラスとして定義するとしたらどのようになるか、Ruby コードで記述せよ（クラス定義のみでよい）
+# # コースリスト： コース ID => [ コース名, 単位数 ]
+# courses = [ { 'M2001' => [ '数学２-１', 4 ] },
+#             { 'E1001' => [ '英語１', 2 ] },
+#             { 'H3001' => [ '歴史３-１', 3 ] } ]
 #
-# クラス名、変数名等は任意
-#
+# # 教師リスト： 教師 ID => [ 教師名, [ 担当コース ID のリスト ] ]
+# teachers = [ { 1 => [ '佐藤', [ 'T4004', 'E1001' ] ] },
+#              { 2 => [ '鈴木', [ 'M2001', 'M2002' ] ] },
+#              { 3 => [ '田中', [ 'E1001', 'M2001' ] ] } ]
 
 class Courses
-  def create=()
+  attr_accessor :list
 
+  def initialize
+    @list = []
+  end
+
+  def set(id, name, credit)
+    @list << { id => [name, credit] }
   end
 end
 
-class Teachers
-
-end
+courses = Courses.new
+courses.set('M2001', '数学２-１', 4)
+courses.set('E1001', '英語１', 2)
+courses.set('H3001', '歴史３-１', 3)
+p courses.list
