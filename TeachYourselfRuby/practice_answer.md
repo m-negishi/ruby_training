@@ -1056,3 +1056,126 @@
   puts Person.compatibility(a, b)
   puts Person.compatibility(o, ab)
   ```
+
+  1. Personクラスを継承して、FighterクラスとWizardクラスを作成する。
+
+  [7.6.2.rb](./7.6.2.rb)
+
+  ```ruby
+  class Person
+    attr_reader :strength
+    attr_reader :cleverness
+
+    def initialize(st, cl)
+      @strength = st
+      @cleverness = cl
+    end
+  end
+
+  class Fighter < Person
+    alias base_strength strength
+
+    def strength
+      @strength * 1.5
+    end
+  end
+
+  class Wizard < Person
+    alias base_strength strength
+    alias base_cleverness cleverness
+
+    def strength
+      @strength * 0.5
+    end
+
+    def cleverness
+      @cleverness * 3
+    end
+  end
+
+  f = Fighter.new(10, 10)
+  puts f.strength
+  puts f.base_strength
+  #
+  w = Wizard.new(10, 10)
+  puts w.cleverness
+  puts w.base_cleverness
+
+  ```
+
+7章の理解度チェック
+
+  1. Mix-inに必要なモジュールが持つ性質3つ
+
+    1. モジュールのインスタンスは作れない
+
+    1. モジュールは継承のスーパークラスにはなれない
+
+    1. モジュールは別のクラスまたはモジュールにインクルードできる
+
+  1. 次のコードのように関連付けられるクラスMoney, Yenがある。Yenのオブジェクトのメソッドを呼び出すとき、クラス、モジュールを検索される順に並び替える
+
+    ```ruby
+    class Money
+      # 省略
+    end
+    class Yen < Money
+      include Comparable
+      # 省略
+    end
+    ```
+
+    呼ばれる順番
+
+    d: Yen（自身のクラスが先に呼ばれる
+    a: Comparable
+    b: Money
+    c: Object
+    e: Kernel
+
+  1. トップレベルで定義したメソッドが、どこからでも呼び出し可能な理由
+
+    * トップレベルメソッド
+
+    クラスやモジュール定義の外側で定義したメソッド
+
+    Objectクラス内の領域で定義されるので、Objectクラスのメソッドとなり、全てのクラスはObjectクラスのサブクラスであるため、全てのクラスのどこからでも参照できる
+
+  1. 次のMoneyクラスには通貨の比較を行うeql?メソッドが定義されている。このメソッドをサブクラスのYenでは通貨と金額を比較するメソッドに置き換えたい。ただし、元の通貨の比較はeql_currency?として残しておく。
+
+  [7_check.4.rb](./7_check.4.rb)
+
+  ```ruby
+  class Money
+    attr_reader :currency
+    def initialize(c)
+      @currency = c
+    end
+    def eql?(other)
+      other.class == self.class && other.currency == currency
+    end
+  end
+
+  class Yen < Money
+    attr_reader :value
+    alias eql_currency? eql?
+    def initialize(v)
+      super('YEN')
+      @value = v
+    end
+
+    def eql?(other)
+      eql_currency?(other) && other.value == value
+    end
+  end
+
+  ten1 = Yen.new(10)
+  ten2 = Yen.new(10)
+  hund = Yen.new(100)
+
+  p ten1.eql?(ten1)
+  p ten1.eql?(ten2)
+  p ten1.eql?(hund)
+  p ten1.eql_currency?(hund)
+
+  ```
