@@ -1179,3 +1179,52 @@
   p ten1.eql_currency?(hund)
 
   ```
+
+8.1
+
+  1. 1〜10の整数がランダムに並んだ配列から、3の倍数を抽出して昇順に並べる
+
+  [8.1.1.rb](./8.1.1.rb)
+
+  ```ruby
+  list = [7, 6, 9, 4, 2, 10, 3, 1, 5, 8]
+
+  p list.select { |value| value % 3 == 0 }.sort
+
+  ```
+
+  * collectとselectの違い
+
+  ```ruby
+  list = [7, 6, 9, 4, 2, 10, 3, 1, 5, 8]
+  p list.select { |value| value % 3 == 0 } # => [6, 9, 3]
+
+  p list.collect { |value| value if value % 3 == 0 } # => [nil, 6, 9, nil, nil, nil, 3, nil, nil, nil]
+  ```
+
+  collectは元の配列の要素数と同じだけ返り値がある
+
+  selectは条件に合致した要素だけ返す
+
+  1. じゃんけんのそれぞれの手を'G'(=グー)、'C'(=チョキ)、'P'(=パー)で表現する。G, C, Pを格納した配列から、それぞれの手に勝つ手を格納した配列を作成する
+
+  [8.1.2.rb](./8.1.2.rb)
+
+  ```ruby
+  janken = ['G', 'C', 'P']
+  janken_win = []
+
+  janken.each do |j|
+    case j
+    when j = 'G'
+      janken_win << 'P'
+    when j = 'C'
+      janken_win << 'G'
+    when j = 'P'
+      janken_win << 'C'
+    end
+  end
+
+  p janken_win
+
+  ```
