@@ -39,9 +39,9 @@ course_id_and_courses.each_key do |course_id|
   course_id_and_teachers.each do |course_id_and_teacher|
     if course_id_and_teacher[0] == course_id
       if course_and_teacher[course_id].nil?
-        course_and_teacher[course_id] = "#{course_id_and_teacher[1]}先生"
+        course_and_teacher[course_id] = "#{course_id_and_teacher[1]}" + '先生'
       else
-        course_and_teacher[course_id] += ', ' + "#{course_id_and_teacher[1]}先生"
+        course_and_teacher[course_id] += ', ' + "#{course_id_and_teacher[1]}" + '先生'
       end
     end
   end
