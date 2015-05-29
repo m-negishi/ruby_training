@@ -1179,3 +1179,139 @@
   p ten1.eql_currency?(hund)
 
   ```
+
+8.1
+
+  1. 1〜10の整数がランダムに並んだ配列から、3の倍数を抽出して昇順に並べる
+
+  [8.1.1.rb](./8.1.1.rb)
+
+  ```ruby
+  list = [7, 6, 9, 4, 2, 10, 3, 1, 5, 8]
+
+  p list.select { |value| value % 3 == 0 }.sort
+
+  ```
+
+  * collectとselectの違い
+
+  ```ruby
+  list = [7, 6, 9, 4, 2, 10, 3, 1, 5, 8]
+  p list.select { |value| value % 3 == 0 } # => [6, 9, 3]
+
+  p list.collect { |value| value if value % 3 == 0 } # => [nil, 6, 9, nil, nil, nil, 3, nil, nil, nil]
+  ```
+
+  collectは元の配列の要素数と同じだけ返り値がある
+
+  selectは条件に合致した要素だけ返す
+
+  1. じゃんけんのそれぞれの手を'G'(=グー)、'C'(=チョキ)、'P'(=パー)で表現する。G, C, Pを格納した配列から、それぞれの手に勝つ手を格納した配列を作成する
+
+  [8.1.2.rb](./8.1.2.rb)
+
+  ```ruby
+  janken = ['G', 'C', 'P']
+  janken_win = []
+
+  janken.each do |j|
+    case j
+    when j = 'G'
+      janken_win << 'P'
+    when j = 'C'
+      janken_win << 'G'
+    when j = 'P'
+      janken_win << 'C'
+    end
+  end
+
+  p janken_win
+
+  ```
+
+8.2
+
+  1. この節で作成したMyArrayのeach1もしくはeach2メソッドを使って、selectメソッドを実装。
+
+    [8.2.1.rb](./8.2.1.rb)
+
+    ```ruby
+    class MyArray
+      def initialize(ary)
+        @ary = ary
+      end
+      def each1
+        i = 0
+        while i < @ary.size
+          yield(@ary[i])
+          i += 1
+        end
+      end
+      def select1
+        result = []
+        each1 do |j|
+          result << j if yield(j)
+        end
+        p result
+      end
+
+      def each2(&block)
+        i = 0
+        while i < @ary.size
+          block.call(@ary[i])
+          i += 1
+        end
+      end
+
+      def select2(&block)
+        result = []
+        each2 do |j|
+          result << j if block.call(j)
+        end
+        p result
+      end
+    end
+
+    list = MyArray.new([7, 6, 9, 4, 2, 10, 3, 1, 5, 8])
+    list.select1 { |i| i % 3 == 0 }
+    list.select2 { |i| i % 3 == 0 }
+
+    ```
+
+    1. 1〜12の整数が格納された配列を付きの名前の配列に変換するメソッドを作成。1〜12以外の数字はスキップ。月の英語名はDateクラスのMONTHNAMESで取得可能。
+
+      [8.2.2.rb](./8.2.2.rb)
+
+      ```ruby
+      require 'date'
+
+      # メソッド定義
+      def chg_month(list, &block)
+        # ブロックがある場合
+        if block
+          result = []
+          list.each do |m|
+            next unless (1..12).include?(m)
+            result << block.call(m) if block.call(m)
+          end
+          p result
+        # ブロック省略時
+        else
+          # 月の英語名
+          e_month = Date::MONTHNAMES
+          result = []
+          list.each do |m|
+            next unless (1..12).include?(m)
+            result << e_month[m] if e_month[m]
+          end
+          p result
+        end
+      end
+
+      # # ブロック省略時は英語名に変換
+      chg_month([0, 1, 2, 3, 13]) # => ['January', ....]
+      #
+      # # ブロック指定時は指定された処理で変換
+      chg_month([0, 1, 2, 3, 13]) {|m| "#{m}月"}
+
+      ```
