@@ -22,26 +22,26 @@ course_id_and_teachers = []
 # course_id_and_teacher[コースID] = 教師名 に 初期化
 teachers.length.times do |i|
   teachers[i].each_value do |teacher_info|
-
     # 教師名 ： 担当コース(Array)
     # puts "#{teacher_info[0]} : #{teacher_info[1]}"
     teacher_info[1].each do |course_id|
       # コースid, 担当教師
-      course_id_and_teachers << [course_id, teacher_info[0]]
+      course_id_and_teachers << { course_id => teacher_info[0] }
     end
   end
 end
 
 course_and_teacher = {}
 
-puts "コース名 : 担当教師"
+# puts "コース名 : 担当教師"
 course_id_and_courses.each_key do |course_id|
   course_id_and_teachers.each do |course_id_and_teacher|
-    if course_id_and_teacher[0] == course_id
-      if course_and_teacher[course_id].nil?
-        course_and_teacher[course_id] = "#{course_id_and_teacher[1]}" + '先生'
+    course_id_and_teacher.each_key do |id|
+      next if id != course_id
+      if course_and_teacher[id].nil?
+        course_and_teacher[id] = "#{course_id_and_teacher[id]}先生"
       else
-        course_and_teacher[course_id] += ', ' + "#{course_id_and_teacher[1]}" + '先生'
+        course_and_teacher[id] += ", #{course_id_and_teacher[id]}先生"
       end
     end
   end
