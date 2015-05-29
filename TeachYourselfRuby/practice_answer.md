@@ -1315,3 +1315,32 @@
       chg_month([0, 1, 2, 3, 13]) {|m| "#{m}月"}
 
       ```
+
+8.3
+
+  1. ページ数を指定して、ページをカウントするページカウンタを作成する
+
+    [8.3.1.rb](./8.3.1.rb)
+
+    ```ruby
+    def page_counter(pages)
+      pc = 0
+      lambda do # ブロックだから、もちろんdo~endも使える
+        pc += 1 if pc < pages
+        puts "#{pc} / #{pages}"
+      end
+    end
+
+    pc1 = page_counter(5)
+    pc2 = page_counter(2)
+
+    # callしているので、組み込み関数を使う
+    pc1.call
+    pc1.call
+    pc2.call
+    pc2.call
+    pc2.call
+    pc1.call
+    pc1.call
+    pc1.call
+    ```
