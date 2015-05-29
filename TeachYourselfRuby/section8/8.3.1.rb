@@ -9,7 +9,7 @@ end
 pc1 = page_counter(5)
 pc2 = page_counter(2)
 
-# callしているので、組み込み関数を使う
+# callしているので、メソッド内にcallは要らない
 pc1.call
 pc1.call
 pc2.call

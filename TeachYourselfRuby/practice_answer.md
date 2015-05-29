@@ -1344,3 +1344,100 @@
     pc1.call
     pc1.call
     ```
+
+8章の理解度チェック
+
+  1. ブロック、イテレータ、クロージャについて説明
+
+    ブロック
+
+      {}もしくはdo〜endで書く。コードの塊をメソッドに渡すことができる。
+
+    イテレータ
+
+      繰り返しに関するメソッド
+
+    クロージャ
+
+      オブジェクト化された手続き（ブロック付きメソッドに渡されたブロック引数）
+      手続きと、その手続から参照可能なローカル変数などの状態を閉じ込めたブロック
+
+
+  1. ブロックを実行するメソッドを、ブロックの実行方法を変えて2種類作れ
+
+    [8_check.2.rb](./8_check.2.rb)
+
+    ```ruby
+    # yieldを使う場合
+    def method1(i)
+      yield(i)
+    end
+
+    # ブロック引数を使う場合
+    def method2(i, &block)
+      block.call(i)
+    end
+
+    method1(3) { |x| puts x * x }
+    method2(3) { |x| puts x * x }
+    ```
+
+  1. 次に示すメソッドを、ブロック省略時には単に引数nを表示するように変更する
+
+    [8_check.3.rb](./8_check.3.rb)
+
+    ```ruby
+    def method2(n)
+      if defined? yield
+        yield(n)
+      else
+        puts n
+      end
+    end
+
+    method2(3) { |x| puts x * x }
+    method2(2)
+    ```
+
+  1. 手続きオブジェクトをメソッドにブロック渡しするにはどうすればいいか
+
+    メソッド呼び出し時に、引数に&をつけた手続きオブジェクトを指定する
+
+  1. 呼び出される度に新しい値を生成するプログラムをジェネレーターという。初項と公比を指定して、等比数列を生成するジェネレーターを、クロージャを使って作成
+
+    [8_check.5.rb](./8_check.5.rb)
+
+    ```ruby
+    # 何乗するかを保持する場合
+    def make_gs_gen(ft, cr)
+      ans = 0
+      count = 0
+      lambda do
+        ans = ft * (cr ** count)
+        count += 1
+        ans
+      end
+    end
+
+    # 今の解答を保持する場合
+    # def make_gs_gen(ft, cr)
+    #   ans = 0
+    #   lambda do
+    #     if ans != 0
+    #       ans *= cr
+    #     else
+    #       ans = ft
+    #     end
+    #   end
+    # end
+
+    gen1 = make_gs_gen(1, 2) # 初項1, 公比2
+    gen2 = make_gs_gen(10, 10) # 初項10, 公比10
+
+    puts gen1.call
+    puts gen1.call
+    puts gen1.call
+    puts gen2.call
+    puts gen2.call
+    puts gen2.call
+    ```
