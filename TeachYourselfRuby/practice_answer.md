@@ -1585,3 +1585,20 @@
     person.age = 20.1
     puts person.age
     ```
+
+10.1
+
+  1. キーボードからの入力を表示して、また入力待ちに戻るプログラム。exitが入力されたら終了
+
+    [10.1.1.rb](./section10/10.1.1.rb)
+
+    ```ruby
+    loop do
+      print '>'
+      a = gets
+      break if a.chomp == 'exit'
+      puts a
+    end
+    puts '終了'
+
+    ```
