@@ -122,7 +122,7 @@
 
  1. 変数`a`の数値が「0より小さい」「0に等しい」「0より大きい」のどれに当たるかを判定し、結果を表示するプログラム
 
-  [2.5.1.rb](./2.5.1.rb)
+  [2.5.1.rb](./section2/2.5.1.rb)
   ```ruby
   puts '数値を入力'
   a = gets.to_i
@@ -139,7 +139,7 @@
 
  1. 1~12の値を場合分けし、月の英語表記を表示
 
-  [2.5.2.rb](./2.5.2.rb)
+  [2.5.2.rb](./section2/2.5.2.rb)
   ```ruby
   puts '1~12までの数値を入力'
 
@@ -179,7 +179,7 @@
 
  1. 1から100までの加算を`for`, `each`, `times`で実現
 
-  [2.6.1.rb](./2.6.1.rb)
+  [2.6.1.rb](./section2/2.6.1.rb)
   ```ruby
   puts 'for文の場合'
 
@@ -226,7 +226,7 @@
 
 2章の理解度チェック
 
- [2_check.rb](./2_check.rb)
+ [2_check.rb](./section2/2_check.rb)
 
  1. 1から100までの数字で、3の倍数だけ出力
 
@@ -258,7 +258,7 @@
 
   1. 10を3で割った商と余り
 
-  [3.2.1.rb](./3.2.1.rb)
+  [3.2.1.rb](./section3/3.2.1.rb)
   ```ruby
   a = 10
   b = 3
@@ -289,7 +289,7 @@
 
 3章理解度チェック
 
-  [3_check.rb](./3_check.rb)
+  [3_check.rb](./section3/3_check.rb)
 
   1. 5.04と5.05をそれぞれ小数点第二位で四捨五入、切り捨てる
 
@@ -320,7 +320,7 @@
 
   1. 文章を文字列に。数値や演算結果は式展開する
 
-   [4.1.1.rb](./4.1.1.rb)
+   [4.1.1.rb](./section4/4.1.1.rb)
    ```ruby
    a = 5.5
    str = <<-EOF
@@ -336,7 +336,7 @@
 
   1. 文字列を%記法で簡単に記述する
 
-   [4.1.2.rb](./4.1.2.rb)
+   [4.1.2.rb](./section4/4.1.2.rb)
    ```ruby
    # str = "printf(\"value=%d\\n\", value);"
 
@@ -352,7 +352,7 @@
 
   1. 文中に「the」が含まれる場合、何文字目に来るか表示する
 
-    [4.2.1.rb](./4.2.1.rb)
+    [4.2.1.rb](./section4/4.2.1.rb)
     ```ruby
     str = 'I think, therefore I am.'
     key = 'the'
@@ -368,7 +368,7 @@
 
   1. 文字列の連結を使って文章を作成
 
-    [4.2.2.rb](./4.2.2.rb)
+    [4.2.2.rb](./section4/4.2.2.rb)
     ```ruby
     star = '*'
     # puts star
@@ -395,7 +395,7 @@
 
   1. メールアドレスのユーザ部とホスト部をそれぞれ取得し、表示する
 
-    [4.3.2.rb](./4.3.2.rb)
+    [4.3.2.rb](./section4/4.3.2.rb)
     ```ruby
     email = 'rubyist@ruby.example.com'
 
@@ -422,7 +422,7 @@
 
   1. エンコーディングUTF-8の文字列をShift-JISに変換して出力
 
-    [4.4.2.rb](./4.4.2.rb)
+    [4.4.2.rb](./section4/4.4.2.rb)
     ```ruby
     str = 'encoding テスト'
 
@@ -443,7 +443,7 @@
 
   1. 2つの整数と、「たす」「ひく」「かける」「わる」という日本語の演算子から計算するプログラム
 
-    [4_check.1.rb](./4_check.1.rb)
+    [4_check.1.rb](./section4/4_check.1.rb)
     ```ruby
     # 標準入力を行う場合は下記
     # puts '1つ目の整数を入力'
@@ -497,7 +497,7 @@
 
   1. 正規表現で、電話番号、メールアドレスにマッチングするパターンを作成
 
-    [4_check.2.rb](./4_check.2.rb)
+    [4_check.2.rb](./section4/4_check.2.rb)
     ```ruby
     tel1 = '03-1234-5678'
     tel2 = '080-1234-5678'
@@ -553,7 +553,7 @@
 
   1. 2008/2/3 から 2008/9/10 までの日数を計算するプログラム。ただしTimeクラスを使用
 
-    [5.1.1.rb](./5.1.1.rb)
+    [5.1.1.rb](./section5/5.1.1.rb)
     ```ruby
     diff_seconds = Time.new(2008, 9, 10) - Time.new(2008, 2, 3)
 
@@ -573,7 +573,7 @@
 
   1. 2008/2/3 から 2008/9/10 までの日数を計算するプログラム。ただしDateクラスを使用
 
-    [5.2.1.rb](./5.2.1.rb)
+    [5.2.1.rb](./section5/5.2.1.rb)
     ```ruby
     require 'date'
 
@@ -586,7 +586,7 @@
 
   1. 適切なコードを入れ、うるう年を判定して表示するプログラム
 
-    [5.2.2.rb](./5.2.2.rb)
+    [5.2.2.rb](./section5/5.2.2.rb)
     ```ruby
     require 'date'
 
@@ -611,7 +611,7 @@
 
   1. 3ヶ月後の日付を取得して表示
 
-  [5_check.rb](./5_check.rb)
+  [5_check.rb](./section5/5_check.rb)
 
   ```ruby
   # 2
@@ -635,7 +635,7 @@
 
   1. 適切なコードを入れて、直前の2要素の合計となる数列を作るプログラム
 
-  [6.1.1.rb](./6.1.1.rb)
+  [6.1.1.rb](./section6/6.1.1.rb)
 
   ```ruby
   a = [1, 1]
@@ -650,7 +650,7 @@
 
   1. 適切なコードを入れて、1つの配列から次のように2次元配列を作るプログラム
 
-  [6.1.2.rb](./6.1.2.rb)
+  [6.1.2.rb](./section6/6.1.2.rb)
 
   ```ruby
   a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -677,7 +677,7 @@
 
   1. 1〜12の数字を陰暦の月名に変換するプログラム
 
-  [6.2.1.rb](./6.2.1.rb)
+  [6.2.1.rb](./section6/6.2.1.rb)
 
   ```ruby
   # keyをシンボル(文字列)としてhash生成
@@ -724,7 +724,7 @@
 
   1. 次の数値を配列に入れて、昇順、降順で表示。合計値、平均値を表示。1, 10, 12, 3, 8, 90, 34, 82
 
-     [6_check.1.rb](./6_check.1.rb)
+     [6_check.1.rb](./section6/6_check.1.rb)
 
      ```ruby
      arr = [1, 10, 12, 3, 8, 90, 34, 82]
@@ -744,7 +744,7 @@
 
   1. 好きな食べ物を10個ハッシュに入れる。キーは好きな順位、値は好きな食べ物の名称。好きな食べ物を一覧で表示。また、2番目と7番目に好きなものを一緒に食べるという文字列を表示
 
-     [6_check.2.rb](./6_check.2.rb)
+     [6_check.2.rb](./section6/6_check.2.rb)
 
      ```ruby
      foods = {
@@ -816,7 +816,7 @@
 
   1. Dogクラスに、あらかじめkindの初期値が指定できるようにする
 
-    [7.2.1.rb](./7.2.1.rb)
+    [7.2.1.rb](./section7/7.2.1.rb)
 
     ```ruby
     class Dog
@@ -853,7 +853,7 @@
 
     * エサを与えるとfeelingメソッドは一度だけ'Good'を返す
 
-    [7.2.2.rb](./7.2.2.rb)
+    [7.2.2.rb](./section7/7.2.2.rb)
 
     ```ruby
     class Dog
@@ -914,7 +914,7 @@
 
   1. 次のクラスのメソッドはprivate定義されているが、cookingメソッドのみpublicに変更したい。指定の位置にコードを追加して、可視性を変更する
 
-  [7.3.2.rb](./7.3.2.rb)
+  [7.3.2.rb](./section7/7.3.2.rb)
 
   ```ruby
   class Chef
@@ -978,7 +978,7 @@
 
     * Birthモジュールは現時点で成人（20歳以上）かどうかを判定するcoming_of_age?メソッドを追加する
 
-    [7.5.2.rb](./7.5.2.rb)
+    [7.5.2.rb](./section7/7.5.2.rb)
 
     ```ruby
     require 'date'
@@ -1024,7 +1024,7 @@
 
   1. 次のようなPersonクラスがあり、血液型を返すbloodtypeメソッドがある。このPersonクラスにPersonオブジェクトの血液型の相性を調べるクラスメソッドcompatibilityを作成する。ただし、このクラスメソッドは特異クラス定義で定義する。
 
-  [7.6.1.rb](./7.6.1.rb)
+  [7.6.1.rb](./section7/7.6.1.rb)
 
   ```ruby
   class Person
@@ -1059,9 +1059,10 @@
 
   1. Personクラスを継承して、FighterクラスとWizardクラスを作成する。
 
-  [7.6.2.rb](./7.6.2.rb)
+  [7.6.2.rb](./section7/7.6.2.rb)
 
   ```ruby
+
   class Person
     attr_reader :strength
     attr_reader :cleverness
@@ -1143,7 +1144,7 @@
 
   1. 次のMoneyクラスには通貨の比較を行うeql?メソッドが定義されている。このメソッドをサブクラスのYenでは通貨と金額を比較するメソッドに置き換えたい。ただし、元の通貨の比較はeql_currency?として残しておく。
 
-  [7_check.4.rb](./7_check.4.rb)
+  [7_check.4.rb](./section7/7_check.4.rb)
 
   ```ruby
   class Money
@@ -1177,14 +1178,13 @@
   p ten1.eql?(ten2)
   p ten1.eql?(hund)
   p ten1.eql_currency?(hund)
-
   ```
 
 8.1
 
   1. 1〜10の整数がランダムに並んだ配列から、3の倍数を抽出して昇順に並べる
 
-  [8.1.1.rb](./8.1.1.rb)
+  [8.1.1.rb](./section8/8.1.1.rb)
 
   ```ruby
   list = [7, 6, 9, 4, 2, 10, 3, 1, 5, 8]
@@ -1208,7 +1208,7 @@
 
   1. じゃんけんのそれぞれの手を'G'(=グー)、'C'(=チョキ)、'P'(=パー)で表現する。G, C, Pを格納した配列から、それぞれの手に勝つ手を格納した配列を作成する
 
-  [8.1.2.rb](./8.1.2.rb)
+  [8.1.2.rb](./section8/8.1.2.rb)
 
   ```ruby
   janken = ['G', 'C', 'P']
@@ -1233,7 +1233,7 @@
 
   1. この節で作成したMyArrayのeach1もしくはeach2メソッドを使って、selectメソッドを実装。
 
-    [8.2.1.rb](./8.2.1.rb)
+    [8.2.1.rb](./section8/8.2.1.rb)
 
     ```ruby
     class MyArray
@@ -1280,7 +1280,7 @@
 
     1. 1〜12の整数が格納された配列を付きの名前の配列に変換するメソッドを作成。1〜12以外の数字はスキップ。月の英語名はDateクラスのMONTHNAMESで取得可能。
 
-      [8.2.2.rb](./8.2.2.rb)
+      [8.2.2.rb](./section8/8.2.2.rb)
 
       ```ruby
       require 'date'
@@ -1320,7 +1320,7 @@
 
   1. ページ数を指定して、ページをカウントするページカウンタを作成する
 
-    [8.3.1.rb](./8.3.1.rb)
+    [8.3.1.rb](./section8/8.3.1.rb)
 
     ```ruby
     def page_counter(pages)
@@ -1365,7 +1365,7 @@
 
   1. ブロックを実行するメソッドを、ブロックの実行方法を変えて2種類作れ
 
-    [8_check.2.rb](./8_check.2.rb)
+    [8_check.2.rb](./section8/8_check.2.rb)
 
     ```ruby
     # yieldを使う場合
@@ -1384,7 +1384,7 @@
 
   1. 次に示すメソッドを、ブロック省略時には単に引数nを表示するように変更する
 
-    [8_check.3.rb](./8_check.3.rb)
+    [8_check.3.rb](./section8/8_check.3.rb)
 
     ```ruby
     def method2(n)
@@ -1405,7 +1405,7 @@
 
   1. 呼び出される度に新しい値を生成するプログラムをジェネレーターという。初項と公比を指定して、等比数列を生成するジェネレーターを、クロージャを使って作成
 
-    [8_check.5.rb](./8_check.5.rb)
+    [8_check.5.rb](./section8/8_check.5.rb)
 
     ```ruby
     # 何乗するかを保持する場合
@@ -1440,4 +1440,148 @@
     puts gen2.call
     puts gen2.call
     puts gen2.call
+    ```
+
+9.1
+
+  1. 例外処理にはどんなメリットがあるか
+
+    通常の処理と、例外の処理を分けて書くことができる
+
+  1. 定義されていないクラスを使おうとしたときに発生する例外は何か
+
+    NameError
+
+9.2
+
+  1. begin-end間に記述する、例外補足時の処理を記述する節、例外が発生しなかった時の処理を記述する節、例外発生有無に関係なく実行される処理を記述する節をそれぞれなんというか
+
+    例外補足時の処理を記述する節
+
+      rescue
+
+    例外が発生しなかった時の処理を記述する節
+
+      else
+
+    例外発生有無に関係なく実行される処理を記述する節
+
+      ensure
+
+
+  1. ファイルを開いて文字列を書き込み、ファイルを閉じる下記のようなプログラムがあります。このプログラムを、ファイルが読み取り専用のときはエラー発生のメッセージを表示するよう変更する
+
+    [9.2.2.rb](./section9/9.2.2.rb)
+
+    ```ruby
+    filename = 'example.txt'
+    begin
+      f = File.open(filename, 'w')
+    rescue
+      puts 'エラーが発生しました'
+    else
+      puts 'ファイルを開きました'
+      f.puts 'test'
+    ensure
+      f.close if f
+      puts 'ファイルを閉じました'
+    end
+
+    ```
+
+9.3
+
+  1. raiseにエラーメッセージの文字列を指定した場合に発生する例外クラスは何か
+
+    RuntimeError
+
+  1. ログイン処理のサンプルプログラムがある。必要な例外クラスの定義を追加し、loginメソッドの処理を完成させる。ただし、loginメソッドの振る舞いは以下のとおり。
+
+    * ユーザ名が'server_error'の場合はサーバエラーとする
+    * ログインできるユーザはユーザテーブル(users)に含まれるユーザのみとする
+    * ユーザテーブルは、ユーザ名をkey, passwordを値にするハッシュとする
+
+    [9.3.2.rb](./section9/9.3.2.rb)
+
+    ```ruby
+    class LoginCertifyError < StandardError
+    end
+
+    class LoginUserUnknownError < StandardError
+    end
+
+    class LoginServerError < StandardError
+    end
+
+    def login(u, p)
+      users = {
+        'user1' => 'pass1',
+        'user2' => 'pass2',
+      }
+
+      raise LoginServerError if u == 'server_error'
+      raise LoginUserUnknownError unless users.key?(u)
+      raise LoginCertifyError unless users[u] == p
+    end
+
+    user = 'user1'
+    pass = 'pass1'
+
+    begin
+      login(user, pass)
+      puts 'ログインに成功'
+    rescue LoginCertifyError => ce
+      puts 'passwordが違う'
+    rescue LoginUserUnknownError => ue
+      puts 'ユーザが見つからない'
+    rescue LoginServerError => se
+      puts 'サーバに接続できない'
+    end
+    ```
+
+9章理解度チェック
+
+  1. 次のメソッドはWebサーバのレスポンスからContent-Typeを取得する。このコードではWebサーバに接続できない場合に例外が発生する。例外が発生した場合にはそのメッセージを表示し、nilを返すようにする。
+
+  [9_check.1.rb](./section9/9_check.1.rb)
+
+  ```ruby
+  require 'net/http'
+
+  def get_content_type(host, path)
+    begin
+      Net::HTTP.start(host) do |http|
+        response = http.head(path)
+        puts response['content-type']
+      end
+    rescue SocketError => err
+      # STDERR.puts err.message
+      $stderr.puts err.message
+    end
+  end
+
+  get_content_type 'www.tech-arts.co.jp', '/index.html'
+  ```
+
+  1. 次のPersonクラスでは年齢の設定、取得が可能。年齢に整数でない値、負の数が設定されようとした場合に例外を発生させる。
+
+    [9_check.2.rb](./section9/9_check.2.rb)
+
+    ```ruby
+    class Person
+      def age
+        @age
+      end
+
+      def age=(age)
+        raise ArgumentError, '整数ではありません' unless age.integer?
+        # raise ArgumentError, '整数ではありません' unless age.is_a?(Integer)
+        raise ArgumentError, '正の数ではありません' unless age >= 0
+        @age = age
+      end
+    end
+
+    person = Person.new
+    person.age = 20.1
+    puts person.age
     ```
