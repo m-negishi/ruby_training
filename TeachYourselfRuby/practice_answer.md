@@ -1602,3 +1602,35 @@
     puts '終了'
 
     ```
+
+10.2
+
+  1. month.txtに月の英語名を出力する
+
+    [10.2.1.rb](./section10/10.2.1.rb)
+
+    ```ruby
+    require 'date'
+
+    # ファイル名はダブルクォーテーション
+    File.open("month.txt", 'w') do |f|
+      (1..12).each do |i|
+        f.puts Date::MONTHNAMES[i]
+      end
+    end
+
+    ```
+
+  1. 作成したmonth.txtを読み込み、各行を行番号月で表示するプログラムを作成
+
+    [10.2.2.rb](./section10/10.2.2.rb)
+
+    ```ruby
+    File.open("month.txt", 'r') do |f|
+      lines = f.readlines
+      (1..12).each do |m|
+        puts "#{m} #{lines[m-1]}"
+      end
+    end
+
+    ```
