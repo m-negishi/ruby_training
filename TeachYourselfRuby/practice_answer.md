@@ -1634,3 +1634,20 @@
     end
 
     ```
+
+  1. キーボードから入力されたファイル名の有無をチェックし、ファイルが存在すれば削除、存在しなければ警告を表示
+
+    [10.3.2.rb](./section10/10.3.2.rb)
+
+    ```ruby
+    print 'file> '
+    filename = gets
+    filename.chomp!
+    if File.exist?(filename)
+      File.delete(filename)
+      puts "#{filename} を削除しました"
+    else
+      puts "#{filename} が存在しません"
+    end
+
+    ```
