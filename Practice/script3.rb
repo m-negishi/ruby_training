@@ -20,8 +20,8 @@ end
 course_id_and_teachers = []
 
 # course_id_and_teacher[コースID] = 教師名 に 初期化
-teachers.length.times do |i|
-  teachers[i].each_value do |teacher_info|
+teachers.each do |teacher|
+  teacher.each_value do |teacher_info|
     # 教師名 ： 担当コース(Array)
     # puts "#{teacher_info[0]} : #{teacher_info[1]}"
     teacher_info[1].each do |course_id|
