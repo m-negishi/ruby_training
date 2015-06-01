@@ -1585,3 +1585,215 @@
     person.age = 20.1
     puts person.age
     ```
+
+10.1
+
+  1. キーボードからの入力を表示して、また入力待ちに戻るプログラム。exitが入力されたら終了
+
+    [10.1.1.rb](./section10/10.1.1.rb)
+
+    ```ruby
+    loop do
+      print '>'
+      a = gets
+      break if a.chomp == 'exit'
+      puts a
+    end
+    puts '終了'
+
+    ```
+
+10.2
+
+  1. month.txtに月の英語名を出力する
+
+    [10.2.1.rb](./section10/10.2.1.rb)
+
+    ```ruby
+    require 'date'
+
+    # ファイル名はダブルクォーテーション
+    File.open("month.txt", 'w') do |f|
+      (1..12).each do |i|
+        f.puts Date::MONTHNAMES[i]
+      end
+    end
+
+    ```
+
+  1. 作成したmonth.txtを読み込み、各行を行番号月で表示するプログラムを作成
+
+    [10.2.2.rb](./section10/10.2.2.rb)
+
+    ```ruby
+    File.open("month.txt", 'r') do |f|
+      lines = f.readlines
+      (1..12).each do |m|
+        puts "#{m} #{lines[m-1]}"
+      end
+    end
+
+    ```
+
+10.3
+
+  1. キーボードからの入力を1行ずつファイルに出力し、入力が終わったらファイルを閉じて、書き込まれたバイト数を表示する。終了コマンドはexit
+
+    [10.3.1.rb](./section10/10.3.1.rb)
+
+    ```ruby
+    File.open("out.txt", 'w') do |f|
+      loop do
+        print '>'
+        a = gets
+        break if a.chomp == 'exit'
+        f.puts a
+      end
+    end
+    puts "#{File.size("out.txt")} byte 書き込みました"
+
+    ```
+
+  1. キーボードから入力されたファイル名の有無をチェックし、ファイルが存在すれば削除、存在しなければ警告を表示
+
+    [10.3.2.rb](./section10/10.3.2.rb)
+
+    ```ruby
+    print 'file> '
+    filename = gets
+    filename.chomp!
+    if File.exist?(filename)
+      File.delete(filename)
+      puts "#{filename} を削除しました"
+    else
+      puts "#{filename} が存在しません"
+    end
+
+    ```
+
+10.4
+
+  1. キーボードから入力されたディレクトリ名の有無をチェック、なければ作成、既にあれば警告を表示
+
+    [10.4.1.rb](./section10/10.4.1.rb)
+
+    ```ruby
+    print 'directory> '
+    dirname = gets
+    dirname.chomp!
+    if Dir.exist?(dirname)
+      puts "#{dirname} は既に存在します"
+    else
+      Dir.mkdir(dirname)
+      puts "#{dirname} を作成しました"
+    end
+
+    ```
+
+  1. カレントディレクトリから下にあるファイル、ディレクトリをツリー表示する
+
+    [10.4.2.rb](./section10/10.4.2.rb)
+
+    ```ruby
+    def dir_list(indent, wd)
+      Dir.glob("#{wd}/**").each { |f|
+        basename = File.basename(f)
+        prefix = ''
+        indent.times {prefix += '|  '}
+        prefix += '+- '
+        unless File.directory?(f)
+          puts "#{prefix}#{basename}"
+        else
+          puts "#{prefix}#{basename}/"
+          dir_list(indent + 1, f)
+        end
+      }
+    end
+
+    dir_list(0, '.')
+
+    ```
+
+10.5
+
+  1. キーボードからコマンド入力を受け付けて処理を行うプログラム（touch, move, copy, remove, exit)
+
+    [10.5.1.rb](./section10/10.5.1.rb)
+
+    ```ruby
+    require 'fileutils'
+
+    loop do
+      print '> '
+      line = gets
+      line.chomp!
+      cmd = line.split(' ')
+
+      case cmd[0]
+      when 'exit'
+        break
+      when 'touch'
+        File.open("#{cmd[1]}", 'w').close
+        puts "#{cmd[1]} を作成しました"
+      when 'move'
+        FileUtils.mv(cmd[1], cmd[2])
+        puts "#{cmd[1]} を #{cmd[2]} に変更しました"
+      when 'copy'
+        FileUtils.cp(cmd[1], cmd[2])
+        puts "#{cmd[1]} を #{cmd[2]} にコピーしました"
+      when 'remove'
+        FileUtils.rm(cmd[1])
+        puts "#{cmd[1]} を削除しました"
+      else
+        puts '該当しないコマンドです'
+      end
+    end
+
+    ```
+
+10章理解度チェック
+
+  1. ファイルとディレクトリの操作に使用するクラス
+
+    File, Dirクラス
+    FileUtilsはモジュール
+
+  1. キーボードから入力した整数値を受け取って10倍した値を出力する
+
+    [10_check.2.rb](./section10/10_check.2.rb)
+
+    ```ruby
+    print '> '
+    num = gets
+    puts num.to_i * 10
+
+    ```
+
+  1. 任意の内容を含むテキストファイルexercise.txtがあるとする。このファイルの中身をすべて表示するプログラム
+
+    ```ruby
+    File.open("exercise.txt", 'r') { |f| puts f.read }
+    ```
+
+  1. ディレクトリを1つ選択して、そのディレクトリに存在するファイルの名称と拡張子を一覧表示するプログラム
+
+    [10_check.4.rb](./section10/10_check.4.rb)
+
+    ```ruby
+    Dir.glob("./**").each do |file|
+      next unless File.file?(file)
+      puts "#{File.basename(file, '.*')}\t#{File.extname(file)}"
+    end
+
+    ```
+
+  1. 上記で作成したテキストファイルexercise.txtを同じディレクトリ内にexercise_copy.txtという名前でコピーし、コピーしたファイルの中身を書き換える
+
+    ```ruby
+    require 'fileutils'
+
+    FileUtils.cp('exercise.txt', 'exercise_copy.txt')
+    File.open('exercise_copy.txt', 'w') { |f|
+      f.puts '書き換える'
+    }
+    ```
