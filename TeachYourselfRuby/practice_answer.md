@@ -1750,3 +1750,50 @@
     end
 
     ```
+
+10章理解度チェック
+
+  1. ファイルとディレクトリの操作に使用するクラス
+
+    File, Dirクラス
+    FileUtilsはモジュール
+
+  1. キーボードから入力した整数値を受け取って10倍した値を出力する
+
+    [10_check.2.rb](./section10/10_check.2.rb)
+
+    ```ruby
+    print '> '
+    num = gets
+    puts num.to_i * 10
+
+    ```
+
+  1. 任意の内容を含むテキストファイルexercise.txtがあるとする。このファイルの中身をすべて表示するプログラム
+
+    ```ruby
+    File.open("exercise.txt", 'r') { |f| puts f.read }
+    ```
+
+  1. ディレクトリを1つ選択して、そのディレクトリに存在するファイルの名称と拡張子を一覧表示するプログラム
+
+    [10_check.4.rb](./section10/10_check.4.rb)
+
+    ```ruby
+    Dir.glob("./**").each do |file|
+      next unless File.file?(file)
+      puts "#{File.basename(file, '.*')}\t#{File.extname(file)}"
+    end
+
+    ```
+
+  1. 上記で作成したテキストファイルexercise.txtを同じディレクトリ内にexercise_copy.txtという名前でコピーし、コピーしたファイルの中身を書き換える
+
+    ```ruby
+    require 'fileutils'
+
+    FileUtils.cp('exercise.txt', 'exercise_copy.txt')
+    File.open('exercise_copy.txt', 'w') { |f|
+      f.puts '書き換える'
+    }
+    ```
