@@ -1797,3 +1797,57 @@
       f.puts '書き換える'
     }
     ```
+
+11.1
+
+  1. 人間にとってわかりやすいラベルとIPアドレスを対応付ける仕組み
+
+    DNS Domain Name System
+
+  1. 1台のサーバで複数のサービスを提供するとき、サービスごとに割り当てる識別子
+
+    ポート
+
+11.2
+
+  1. pingは何をするコマンドか
+
+    ネットワーク上にホストコンピュータが存在するか確認する
+
+11.3
+
+  1. ポート999番でソケット通信を待ち受けるサーバプログラム
+
+    [11.3.1.rb](./section11/11.3.1.rb)
+
+    ```ruby
+    require 'socket'
+
+    port_num = 999
+
+    con = TCPServer.open(port_num)
+    puts 'waiting connect'
+
+    receive = con.accept
+
+    receive.close
+    con.close
+
+    ```
+
+  1. 上記のプログラムにデータを送信するクライアントプログラム
+
+    [11.3.2.rb](./section11/11.3.2.rb)
+
+    ```ruby
+    require 'socket'
+
+    port_num = 999
+    host = 'localhost'
+
+    con = TCPSocket.open(host, port_num)
+    con.write('connect success')
+
+    con.close
+
+    ```
