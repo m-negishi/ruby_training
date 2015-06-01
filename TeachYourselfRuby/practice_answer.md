@@ -1635,6 +1635,25 @@
 
     ```
 
+10.3
+
+  1. キーボードからの入力を1行ずつファイルに出力し、入力が終わったらファイルを閉じて、書き込まれたバイト数を表示する。終了コマンドはexit
+
+    [10.3.1.rb](./section10/10.3.1.rb)
+
+    ```ruby
+    File.open("out.txt", 'w') do |f|
+      loop do
+        print '>'
+        a = gets
+        break if a.chomp == 'exit'
+        f.puts a
+      end
+    end
+    puts "#{File.size("out.txt")} byte 書き込みました"
+
+    ```
+
   1. キーボードから入力されたファイル名の有無をチェックし、ファイルが存在すれば削除、存在しなければ警告を表示
 
     [10.3.2.rb](./section10/10.3.2.rb)
@@ -1648,6 +1667,86 @@
       puts "#{filename} を削除しました"
     else
       puts "#{filename} が存在しません"
+    end
+
+    ```
+
+10.4
+
+  1. キーボードから入力されたディレクトリ名の有無をチェック、なければ作成、既にあれば警告を表示
+
+    [10.4.1.rb](./section10/10.4.1.rb)
+
+    ```ruby
+    print 'directory> '
+    dirname = gets
+    dirname.chomp!
+    if Dir.exist?(dirname)
+      puts "#{dirname} は既に存在します"
+    else
+      Dir.mkdir(dirname)
+      puts "#{dirname} を作成しました"
+    end
+
+    ```
+
+  1. カレントディレクトリから下にあるファイル、ディレクトリをツリー表示する
+
+    [10.4.2.rb](./section10/10.4.2.rb)
+
+    ```ruby
+    def dir_list(indent, wd)
+      Dir.glob("#{wd}/**").each { |f|
+        basename = File.basename(f)
+        prefix = ''
+        indent.times {prefix += '|  '}
+        prefix += '+- '
+        unless File.directory?(f)
+          puts "#{prefix}#{basename}"
+        else
+          puts "#{prefix}#{basename}/"
+          dir_list(indent + 1, f)
+        end
+      }
+    end
+
+    dir_list(0, '.')
+
+    ```
+
+10.5
+
+  1. キーボードからコマンド入力を受け付けて処理を行うプログラム（touch, move, copy, remove, exit)
+
+    [10.5.1.rb](./section10/10.5.1.rb)
+
+    ```ruby
+    require 'fileutils'
+
+    loop do
+      print '> '
+      line = gets
+      line.chomp!
+      cmd = line.split(' ')
+
+      case cmd[0]
+      when 'exit'
+        break
+      when 'touch'
+        File.open("#{cmd[1]}", 'w').close
+        puts "#{cmd[1]} を作成しました"
+      when 'move'
+        FileUtils.mv(cmd[1], cmd[2])
+        puts "#{cmd[1]} を #{cmd[2]} に変更しました"
+      when 'copy'
+        FileUtils.cp(cmd[1], cmd[2])
+        puts "#{cmd[1]} を #{cmd[2]} にコピーしました"
+      when 'remove'
+        FileUtils.rm(cmd[1])
+        puts "#{cmd[1]} を削除しました"
+      else
+        puts '該当しないコマンドです'
+      end
     end
 
     ```
