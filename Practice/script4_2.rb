@@ -16,7 +16,7 @@ class Courses
   end
 
   def set_data(id, name, credit)
-    @list[id] = {name: name, credit: credit}
+    @list[id] = { name: name, credit: credit }
   end
 
   # def find_by_id(id)
@@ -39,7 +39,7 @@ class Teachers
   end
 
   def set_data(id, name, *courses)
-    @list[id] = {name: name, courses: courses}
+    @list[id] = { name: name, courses: courses }
   end
 
   # def find_by_id(id)
