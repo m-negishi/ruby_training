@@ -1862,6 +1862,6 @@
     ```ruby
     require 'socket'
 
-    info = Socket.gethostbyname('localhost')
-    puts info[3].unpack('CCCC').join('.')
+    # joinするときに、型変換を指定しないと暗黙の変換(to_s)を行う
+    puts Socket.gethostbyname('localhost')[3].unpack('CCCC').join('.')
     ```
