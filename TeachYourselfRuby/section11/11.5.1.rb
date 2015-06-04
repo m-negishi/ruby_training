@@ -1,4 +1,3 @@
-# require 'socket'
 require 'net/http'
 
 def search(key)
