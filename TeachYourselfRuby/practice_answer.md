@@ -1865,3 +1865,55 @@
     # joinするときに、型変換を指定しないと暗黙の変換(to_s)を行う
     puts Socket.gethostbyname('localhost')[3].unpack('CCCC').join('.')
     ```
+
+11.5 googleの検索結果を取得するプログラム
+
+  [11.5.1.rb](./section11/11.5.1.rb)
+
+  ```ruby
+  require 'net/http'
+
+  def search(key)
+    # 引数にはURIではなくFDQNを指定する
+    # URI（httpから始まる）の場合は、parseする
+    Net::HTTP.start('www.google.co.jp', 80) do |http|
+      contents = http.post('/search', "q=#{key}")
+      puts contents.body
+    end
+  end
+
+  keyword = 'Ruby'
+  search(keyword)
+
+  ```
+
+11.6
+
+  メールサーバがないため、省略
+
+11.7
+
+  1. RubyのFTPサイトからファイルをダウンロードする
+
+    ```ruby
+    require 'net/ftp'
+
+    # 接続情報
+    server = 'ftp.ruby-lang.org/'
+    port = 21
+    user_id = 'anonymous'
+    password = ''
+
+    ftp = Net::FTP.new
+    # FTPサーバに接続
+    ftp.connect(server, port)
+    # ログイン
+    ftp.login(user_id, password)
+    # ディレクトリの移動
+    ftp.chdir('/pub/ruby')
+    # ファイルの取得
+    ftp.get('ruby-1.9.1-p243.tar.bz2')
+    # セッションからログアウト
+    ftp.quit
+
+    ```
