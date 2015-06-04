@@ -1,61 +1,47 @@
 require 'date'
 
-class Teachers
-  attr_accessor :list
+class Teacher
+  attr_reader :id
+  attr_reader :name
+  attr_reader :type
+  attr_accessor :work_day
+  attr_reader :course_id
 
-  def initialize
-    @list = {}
+  def initialize(id, name, type, *course_id)
+    raise '専任か非常勤を指定してください' unless type == '専任' || type == '非常勤'
+    raise '教師idは整数で指定してください' unless id.integer? && id.nonzero?
+
+    @id = id
+    @name = name
+    @type = type
+    @course_id = course_id
   end
 
-  def set_data(id, name, type, *courses)
-    raise ArgumentError, 'full_timeかpart_timeを指定してください' unless type == 'full_time' || type == 'part_time'
-    @list[id] = { name: name, type: type, courses: courses }
+  def info
+    puts "  教師ID : #{id}"
+    puts "  教師名 : #{name}"
+    puts "講師種別 : #{@type}"
+    puts "　出勤日 : #{@work_day.join(',')}" if @type == '非常勤'
+    puts "コースid : #{@course_id.join(',')}"
   end
 
-  def set_work_day(id, *work_day)
-    raise StandardError, '勤務曜日を設定するのは非常勤講師のみです' unless @list[id][:type] == 'part_time'
+  def work_day(*work_day)
+    raise '勤務曜日を設定するのは非常勤講師のみです' unless @type == '非常勤'
     work_day.each do |d|
-      raise ArgumentError, '正しい曜日を英語で指定してください（ex: Tue)' unless Date::ABBR_DAYNAMES.include?(d)
+      raise '正しい曜日を英語で指定してください（ex: Tue)' unless Date::ABBR_DAYNAMES.include?(d)
     end
-    @list[id] = { work_day: work_day }
+    @work_day = work_day
   end
 end
 
-teachers = Teachers.new
-teachers.set_data(1, '佐藤', 'full_time', 'T4004', 'E1001')
-teachers.set_data(2, '鈴木', 'part_time', 'M2001', 'M2002')
-teachers.set_data(3, '田中', 'full_time', 'E1001', 'M2001')
-teachers.set_work_day(2, 'Tue', 'Wed', 'Sun')
-# teachers.set_data(4, '斎藤', 'full', 'E1002', 'M3001') # => ArgumentError
-# teachers.set_work_day(3, 'Tue', 'Wed', 'Sun') # => StandardError
-# teachers.set_work_day(2, 'Tue', 'Wed', 'Sun', 'test') # => ArgumentError
-puts teachers.list # => {1=>{:name=>"佐藤", :type=>"full_time", :courses=>["T4004", "E1001"]}, 2=>{:work_day=>["Tue", "Wed", "Sun"]}, 3=>{:name=>"田中", :type=>"full_time", :courses=>["E1001", "M2001"]}}
-
-# class FullTimeTeacher < Teachers
-#   def set_data(id, name, *courses)
-#     super
-#     @list[id] = { type: 'full_time' }
-#   end
-# end
-#
-# class PartTimeTeacher < Teachers
-#   def set_data(id, name, *courses)
-#     super
-#     @list[id] = { type: 'part_time' }
-#   end
-#
-#   def set_work_day(id, *work_day)
-#     @list[id] = { work_day: work_day }
-#   end
-# end
-#
-# teachers = Teachers.new
-# a = FullTimeTeacher.set_data(1, '佐藤', 'T4004', 'E1001')
-# b = PartTimeTeacher.set_data(2, '鈴木', 'M2001', 'M2002')
-# b.set_work_day(2, 'Mon', 'Tue')
-# puts teachers
-
-
-# teachers.set_data(1, '佐藤', 'T4004', 'E1001')
-# teachers.set_data(2, '鈴木', 'M2001', 'M2002')
-# teachers.set_data(3, '田中', 'E1001', 'M2001')
+teacher1 = Teacher.new(1, '佐藤', '専任', 'T4004', 'E1001')
+teacher2 = Teacher.new(2, '鈴木', '非常勤', 'M2001', 'M2002')
+teacher2.work_day('Tue', 'Wed', 'Sun')
+teacher3 = Teacher.new(3, '田中', '専任', 'E1001', 'M2001')
+puts teacher1.info
+puts teacher2.info
+puts teacher3.info
+# puts teacher1.work_day('Tue', 'Wed', 'Sun') # => 例外発生
+# puts teacher2.work_day('Test') # => 例外発生
+# teacher3 = Teacher.new(3, '田中', 'E1001', 'M2001') # => 例外発生
+# teacher4 = Teacher.new(0, '田中', '専任', 'E1001', 'M2001') # => 例外発生
