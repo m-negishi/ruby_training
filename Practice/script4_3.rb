@@ -11,18 +11,48 @@
 class Course
   attr_reader :id
   attr_reader :name
-  attr_reader :credit
+  attr_reader :credits
 
-  def initialize(id, name, credit)
+  def initialize(id, name, credits)
     @id = id
     @name = name
-    @credit = credit
+    @credits = credits
   end
 
   def info
-    puts "コースid : #{@id}"
+    puts "コースID : #{@id}"
     puts "コース名 : #{@name}"
-    puts "  単位数 : #{@credit}"
+    puts "  単位数 : #{@credits}"
+  end
+end
+
+# コースid : M2001
+# コース名 : 数学２-１
+#   単位数 : 4
+#
+# コースid : E1001
+# コース名 : 英語１
+#   単位数 : 2
+#
+# コースid : H3001
+# コース名 : 歴史３-１
+#   単位数 : 3
+
+class Teacher
+  attr_reader :id
+  attr_reader :name
+  attr_reader :course_ids
+
+  def initialize(id, name, *courses)
+    @id = id
+    @name = name
+    @course_ids = courses
+  end
+
+  def info
+    puts "   教師 ID : #{id}"
+    puts "　　教師名 : #{name}"
+    puts "担当コース : #{course_ids.join(',')}"
   end
 end
 
@@ -45,39 +75,21 @@ puts history.info
 # コース名 : 歴史３-１
 #   単位数 : 3
 
-class Teacher
-  attr_reader :id
-  attr_reader :name
-  attr_reader :course_id
-
-  def initialize(id, name, *course_id)
-    @id = id
-    @name = name
-    @course_id = course_id
-  end
-
-  def info
-    puts " 教師ID : #{id}"
-    puts "  教師名 : #{name}"
-    puts "コースid : #{course_id.join(',')}"
-  end
-end
-
-teacher1 = Teacher.new(1, '佐藤', 'T4004', 'E1001')
-teacher2 = Teacher.new(2, '鈴木', 'M2001', 'M2002')
-teacher3 = Teacher.new(3, '田中', 'E1001', 'M2001')
+teacher1 = Teacher.new(1, '佐藤', english.name)
+teacher2 = Teacher.new(2, '鈴木', math.name)
+teacher3 = Teacher.new(3, '田中', english.name, math.name)
 puts teacher1.info
 puts teacher2.info
 puts teacher3.info
 
 # 教師ID : 1
-#   教師名 : 佐藤
-# コースid : T4004,E1001
+#  教師名 : 佐藤
+# 担当コース : 英語１
 #
 #  教師ID : 2
-#   教師名 : 鈴木
-# コースid : M2001,M2002
+#  教師名 : 鈴木
+# 担当コース : 数学２-１
 #
 #  教師ID : 3
-#   教師名 : 田中
-# コースid : E1001,M2001
+#  教師名 : 田中
+# 担当コース : 英語１,数学２-１
