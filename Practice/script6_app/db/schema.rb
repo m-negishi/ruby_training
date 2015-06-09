@@ -14,10 +14,11 @@
 ActiveRecord::Schema.define(version: 20150604092822) do
 
   create_table "courses", force: :cascade do |t|
-    t.string   "name"
+    t.string   "course_id"
+    t.string   "course_name"
     t.integer  "credits"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "courses_teachers", id: false, force: :cascade do |t|
@@ -31,9 +32,9 @@ ActiveRecord::Schema.define(version: 20150604092822) do
   add_index "courses_teachers", ["teacher_id"], name: "index_courses_teachers_on_teacher_id"
 
   create_table "teachers", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "teacher_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end
