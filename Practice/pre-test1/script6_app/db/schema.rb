@@ -21,15 +21,14 @@ ActiveRecord::Schema.define(version: 20150604092822) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "courses_teachers", id: false, force: :cascade do |t|
+  create_table "courses_teachers", force: :cascade do |t|
     t.integer  "course_id",  null: false
     t.integer  "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "courses_teachers", ["course_id"], name: "index_courses_teachers_on_course_id"
-  add_index "courses_teachers", ["teacher_id"], name: "index_courses_teachers_on_teacher_id"
+  add_index "courses_teachers", ["course_id", "teacher_id"], name: "index_courses_teachers_on_course_id_and_teacher_id", unique: true
 
   create_table "teachers", force: :cascade do |t|
     t.string   "teacher_name"
