@@ -7,16 +7,12 @@ class Person
     @cleverness = cl
   end
 
-  def cal_power(st_ratio=1.0, cl_ratio=1.0)
-    self.strength * st_ratio + self.cleverness * cl_ratio
-  end
-
-  def cal_enemy_power(enemy, st_ratio=1.0, cl_ratio=1.0)
-    enemy.strength * st_ratio + enemy.cleverness * cl_ratio
+  def cal_power(obj=self, st_ratio=1.0, cl_ratio=1.0)
+    obj.strength * st_ratio + obj.cleverness * cl_ratio
   end
 
   def battle(enemy)
-    result(cal_power, cal_enemy_power(enemy))
+    result(cal_power, cal_power(enemy))
   end
 
   def result(power, enemy_power, enemy)
@@ -40,9 +36,9 @@ class Fighter < Person
 
   def battle(enemy)
     if enemy.class.to_s == "Wizard"
-      result(cal_power(0.85, 1.0), cal_enemy_power(enemy), enemy)
+      result(cal_power(self, 0.85), cal_power(enemy), enemy)
     elsif enemy.class.to_s == "Priest"
-      result(cal_power, cal_enemy_power(enemy, 0.95, 0.9), enemy)
+      result(cal_power, cal_power(enemy, 0.95, 0.9), enemy)
     else
       super
     end
@@ -63,9 +59,9 @@ class Wizard < Person
 
   def battle(enemy)
     if enemy.class.to_s == "Priest"
-      result(cal_power(1.0, 0.75), cal_enemy_power(enemy), enemy)
+      result(cal_power(self, 1.0, 0.75), cal_power(enemy), enemy)
     elsif enemy.class.to_s == "Fighter"
-      result(cal_power, cal_enemy_power(enemy, 0.85, 1.0), enemy)
+      result(cal_power, cal_power(enemy, 0.85), enemy)
     else
       super
     end
@@ -81,9 +77,9 @@ class Priest < Person
 
   def battle(enemy)
     if enemy.class.to_s == "Fighter"
-      result(cal_power(0.95, 0.9), cal_enemy_power(enemy), enemy)
+      result(cal_power(self, 0.95, 0.9), cal_power(enemy), enemy)
     elsif enemy.class.to_s == "Wizard"
-      result(cal_power, cal_enemy_power(enemy, 1.0, 0.75), enemy)
+      result(cal_power, cal_power(enemy, 1.0, 0.75), enemy)
     else
       super
     end
