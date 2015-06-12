@@ -10,6 +10,7 @@ path = "/"
 # Webサイトに接続
 sock = TCPSocket.open(host, port)
 # HTTPリクエスト文字列の生成
+# 以下の`GET`を`POST`に変えるとserver側でエラー処理が実行される
 request =<<EOF
 GET #{path} HTTP/1.0\r
 Host: #{host}\r
