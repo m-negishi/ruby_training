@@ -1917,3 +1917,31 @@
     ftp.quit
 
     ```
+
+11章理解度チェック
+
+  1. プロトコルとは何か
+
+    通信を行う際の規約
+
+  1. 以下のプロトコルのそれぞれの役割を説明
+
+    * HTTP
+
+      Hyper Text Transfer Protocol
+      WWWにおけるHTMLや画像データなどの通信
+
+    * SMTP
+
+      Simple Mail Transfer Protocol
+      メールサーバ間のメール転送
+
+    * POP
+
+      Post Office Protocol
+      メールサーバに蓄えられたメールの受信
+
+    * FTP
+
+      File Transfer Protocol
+      インターネットでのファイル転送
