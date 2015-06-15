@@ -5,6 +5,7 @@ require 'socket'
 host = "localhost"
 port = 2000
 path = "/"
+# path = "/noexist.html"
 
 # puts "接続開始"
 # Webサイトに接続
