@@ -1988,4 +1988,15 @@
     メモリ空間を別に持つ　プロセス
     メモリ空間を共有する　スレッド
 
-  
+14.1
+
+  1. minihttpディレクトリをlib以下に配置して、httpmain.rbを実行するには、どのようなコマンドを使用すればよいか
+
+    `ruby -Ilib httpmain.rb`
+
+    -Iオプション : ファイルをロードするパスを指定（追加）する
+
+  1. MiniHTTP::Serverのインスタンス生成時にDocumentRootをハッシュで指定できるようにする
+
+    [httpmain.rb](./section14/httpmain.rb)
+    [server.rb](./section14/minihttp/server.rb)

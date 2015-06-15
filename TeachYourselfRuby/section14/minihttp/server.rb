@@ -7,9 +7,11 @@ require './minihttp/status'
 module MiniHTTP
 
 class Process
-  def initialize(socket)
+  def initialize(socket, config)
     # クライアント接続ソケットを渡してオブジェクトを生成する
     @socket = socket
+    @config = config
+    @document_root = config[:DocumentRoot] || '.'
   end
 
   # 処理の実行
@@ -62,7 +64,8 @@ class Process
     path = req.request_uri
     path.gsub!(/\.\.+/, "")# 相対標記の(..)を削除(上位のディレクトリに参照できないようにする)
     path = "/#{path}" unless /^\// =~ path
-    path = ".#{path}"# カレントディレクトリにするために(./)を追加
+    # path = ".#{path}"# カレントディレクトリにするために(./)を追加
+    path = "#{@document_root}#{path}"
     path << "index.html" if /\/$/ =~ path# pathの末尾がディレクトリの場合、index.htmlを参照するようにする
 
     # ファイルが存在しない場合はエラー
@@ -83,9 +86,10 @@ end
 
 # HTTPサーバを表すクラス
 class Server
-  def initialize(port)
+  def initialize(config = {})
     @socket = nil
-    @port = port
+    @config = config
+    @port = config[:Port] || 2000
   end
 
   # HTTPの待ち受け処理を開始する
@@ -101,7 +105,7 @@ class Server
       # スレッドに受信処理を任せる
       Thread.start do
         # クライアントソケットに対するプロセス
-        process = Process.new(sock)
+        process = Process.new(sock, @config)
         process.run
         puts "connection thread done #{sock}"
       end
