@@ -13,7 +13,7 @@ class DateRangeTest < Test::Unit::TestCase
     @dr = DateRange.new(@from, @to)
   end
 
-  def test_from_should_be_date
+  def test_from_should_be_date_at_constructor
     # puts 'test_from_should_be_date'
     # puts self.object_id
     from = '2008/9/9'
@@ -23,11 +23,25 @@ class DateRangeTest < Test::Unit::TestCase
     end
   end
 
-  def test_from_should_be_date2
+  def test_from_should_be_date_input
     # puts 'test_from_should_be_date2'
     # puts self.object_id
     assert_raise(ArgumentError) do
-      @dr.from = "2008/9/9"
+      @dr.from = '2008/9/9'
+    end
+  end
+
+  def test_to_should_be_date_at_constructor
+    from = Date.new(2008, 9, 9)
+    to = '2008/9/10'
+    assert_raise(ArgumentError) do
+      dr = DateRange.new(from, to)
+    end
+  end
+
+  def test_to_should_be_date_input
+    assert_raise(ArgumentError) do
+      @dr.to = '2008/9/10'
     end
   end
 
