@@ -75,16 +75,21 @@ class Battle
 
   # 結果表示
   def result(player1, player2)
+    judge = ''
+
     relative_power = get_relative_power(player1, player2)
     puts "#{player1.class}=#{relative_power[:player1]} vs #{player2.class}=#{relative_power[:player2]}"
 
     if relative_power[:player1] > relative_power[:player2]
-      puts "#{player1.class}の勝ち"
+      judge = "#{player1.class}の勝ち"
     elsif relative_power[:player1] < relative_power[:player2]
-      puts "#{player2.class}の勝ち"
+      judge = "#{player2.class}の勝ち"
     else
-      puts '引き分け'
+      judge = '引き分け'
     end
+
+    puts judge
+    return judge
   end
 
   # strengthとclevernessの相対的な値を取得
@@ -114,17 +119,17 @@ class Battle
 end
 
 # 実行
-# f = Fighter.new(10, 10)
-# w = Wizard.new(10, 10)
-# p = Priest.new(10, 10)
+f = Fighter.new(10, 10)
+w = Wizard.new(10, 10)
+p = Priest.new(10, 10)
 
-# battle = Battle.new
-# battle.result(f, w)
-# battle.result(w, f)
-# battle.result(w, p)
-# battle.result(p, w)
-# battle.result(p, f)
-# battle.result(f, p)
-# battle.result(f, f)
-# battle.result(w, w)
-# battle.result(p, p)
+battle = Battle.new
+battle.result(f, w)
+battle.result(w, f)
+battle.result(w, p)
+battle.result(p, w)
+battle.result(p, f)
+battle.result(f, p)
+battle.result(f, f)
+battle.result(w, w)
+battle.result(p, p)
